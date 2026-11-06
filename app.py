@@ -13,6 +13,7 @@ import numpy as np
 import qrcode
 from flask import Flask, jsonify, redirect, render_template, request, send_from_directory, url_for
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
@@ -28,6 +29,7 @@ if not DB.exists():
     DB.write_text("[]\n", encoding="utf-8")
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 db_lock = threading.Lock()
 
@@ -196,6 +198,8 @@ def qr_code():
     public_base = PUBLIC_URL.read_text(encoding="utf-8").strip().rstrip("/") if PUBLIC_URL.exists() else ""
     if public_base.startswith("https://"):
         upload_url = public_base + url_for("upload_page")
+    elif request.is_secure:
+        upload_url = request.url_root.rstrip("/") + url_for("upload_page")
     else:
         host = request.host.split(":", 1)[0]
         port = request.host.rsplit(":", 1)[1] if ":" in request.host else "8000"
