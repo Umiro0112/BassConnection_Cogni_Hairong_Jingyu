@@ -21,7 +21,7 @@ form.addEventListener('submit', async (event) => {
   const body = new FormData();
   body.append('photo', input.files[0]);
   try {
-    const response = await fetch('/api/upload', { method: 'POST', body });
+    const response = await fetch(document.body.dataset.uploadUrl, { method: 'POST', body });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || 'Upload failed.');
     message.textContent = `Added to the tree. ${result.detail}`;

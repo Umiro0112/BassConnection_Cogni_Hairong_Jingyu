@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Add a postcard</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="upload-page">
+<body class="upload-page" data-upload-url="{{ url_for('upload_card') }}">
   <main class="upload-card">
     <h1>Add your postcard</h1>
     <p>Place the whole postcard on a contrasting surface and photograph it from above.</p>
-    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+    <form id="upload-form" action="{{ url_for('upload_without_javascript') }}" method="post" enctype="multipart/form-data">
       <label class="picker">
         <span>Take or choose a photo</span>
         <input id="photo" name="photo" type="file" accept="image/*" capture="environment" required>
@@ -21,6 +21,6 @@
     <p id="message" role="status"></p>
   </main>
   <noscript><p class="fatal">JavaScript is disabled. Upload still works; the next page will show the result.</p></noscript>
-  <script src="/static/upload.js"></script>
+  <script src="{{ url_for('static', filename='upload.js') }}"></script>
 </body>
 </html>

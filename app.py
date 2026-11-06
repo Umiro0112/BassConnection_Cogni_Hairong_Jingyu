@@ -29,7 +29,7 @@ if not DB.exists():
     DB.write_text("[]\n", encoding="utf-8")
 
 app = Flask(__name__)
-app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 db_lock = threading.Lock()
 
@@ -171,7 +171,7 @@ def upload_card():
         "created_at": time.time(),
         "archived": False,
         "anchor": anchor,
-        "url": f"/uploads/{card_id}.jpg",
+        "url": url_for("uploaded_file", filename=f"{card_id}.jpg"),
     }
     cards.append(card)
     write_cards(cards)
@@ -181,6 +181,8 @@ def upload_card():
 @app.get("/api/postcards")
 def postcards():
     cards = sorted(read_cards(), key=lambda card: card["created_at"])
+    for card in cards:
+        card["url"] = url_for("uploaded_file", filename=f"{card['id']}.jpg")
     return jsonify(
         version=max([card["created_at"] for card in cards], default=0),
         visible=[card for card in cards if not card.get("archived")],
@@ -199,7 +201,7 @@ def qr_code():
     if public_base.startswith("https://"):
         upload_url = public_base + url_for("upload_page")
     elif request.is_secure:
-        upload_url = request.url_root.rstrip("/") + url_for("upload_page")
+        upload_url = url_for("upload_page", _external=True)
     else:
         host = request.host.split(":", 1)[0]
         port = request.host.rsplit(":", 1)[1] if ":" in request.host else "8000"

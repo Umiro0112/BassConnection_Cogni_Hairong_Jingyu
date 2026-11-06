@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Presence Tree</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="kiosk">
+<body class="kiosk" data-postcards-url="{{ url_for('postcards') }}">
   <main id="scene" aria-label="Rotating point cloud memory tree"></main>
   <section class="intro">
     <h1>Presence Tree</h1>
     <p>Scan to hang a postcard.</p>
-    <img src="/qr.png" alt="QR code to postcard upload page">
+    <img src="{{ url_for('qr_code') }}" alt="QR code to postcard upload page">
   </section>
   <button id="mailbox" class="mailbox" type="button" aria-label="Open archived postcards">
     <span aria-hidden="true">✉</span><b id="archive-count">0</b>
@@ -36,6 +36,6 @@
       document.querySelector('#status').textContent = 'Display error: a browser feature could not start';
     });
   </script>
-  <script src="/static/kiosk.js"></script>
+  <script src="{{ url_for('static', filename='kiosk.js') }}"></script>
 </body>
 </html>

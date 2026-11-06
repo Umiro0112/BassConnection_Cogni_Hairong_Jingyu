@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Postcard upload result</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="upload-page">
   <main class="upload-card result-card">
     <h1>{{ "Postcard added" if ok else "Upload failed" }}</h1>
     <p>{{ message }}</p>
-    <a class="again" href="/upload">{{ "Add another postcard" if ok else "Try again" }}</a>
+    <a class="again" href="{{ url_for('upload_page') }}">{{ "Add another postcard" if ok else "Try again" }}</a>
   </main>
 </body>
 </html>

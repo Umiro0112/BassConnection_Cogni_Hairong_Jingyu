@@ -198,7 +198,7 @@ function renderArchive() {
 
 async function sync() {
   try {
-    const response = await fetch('/api/postcards', { cache: 'no-store' });
+    const response = await fetch(document.body.dataset.postcardsUrl, { cache: 'no-store' });
     if (!response.ok) throw new Error('Server unavailable');
     const data = await response.json();
     if (data.version !== lastVersion || data.archived.length !== archived.length) {
