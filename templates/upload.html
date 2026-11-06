@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add a postcard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="upload-page">
+  <main class="upload-card">
+    <h1>Add your postcard</h1>
+    <p>Place the whole postcard on a contrasting surface and photograph it from above.</p>
+    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+      <label class="picker">
+        <span>Take or choose a photo</span>
+        <input id="photo" name="photo" type="file" accept="image/*" capture="environment" required>
+      </label>
+      <img id="preview" alt="Selected postcard preview" hidden>
+      <button id="submit" type="submit">Upload postcard</button>
+    </form>
+    <p id="message" role="status"></p>
+  </main>
+  <noscript><p class="fatal">JavaScript is disabled. Upload still works; the next page will show the result.</p></noscript>
+  <script src="/static/upload.js"></script>
+</body>
+</html>

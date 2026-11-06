@@ -1,0 +1,30 @@
+[
+  {
+    "id": "12b7309596b8",
+    "created_at": 1793742505.365584,
+    "archived": false,
+    "anchor": 0,
+    "url": "/uploads/12b7309596b8.jpg"
+  },
+  {
+    "id": "b0bf4667a59b",
+    "created_at": 1793742522.275784,
+    "archived": false,
+    "anchor": 1,
+    "url": "/uploads/b0bf4667a59b.jpg"
+  },
+  {
+    "id": "522e393583d9",
+    "created_at": 1793744088.68858,
+    "archived": false,
+    "anchor": 2,
+    "url": "/uploads/522e393583d9.jpg"
+  },
+  {
+    "id": "bc9073279a43",
+    "created_at": 1793744100.669068,
+    "archived": false,
+    "anchor": 3,
+    "url": "/uploads/bc9073279a43.jpg"
+  }
+]
